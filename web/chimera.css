@@ -1,0 +1,71 @@
+body {
+  font-family: Georgia;
+  font-size: 11pt;
+}
+
+div#container {
+  position: relative;
+  height: 100%;
+  border: 3px solid #000000;
+  margin: 4px;
+}
+
+div#title {
+  height: 108px;
+  background-color: #000088;
+  background-image: url(chimera.gif);
+  background-repeat: no-repeat;
+  background-position: left;
+  margin: 0px;
+  font-size: 64pt;
+  font-variant: small-caps;
+  font-weight: bold;
+  color: #ffffff;
+  padding-left: 195px;
+  border-bottom: 3px solid #000000;
+}
+
+div#links {
+  background-image: none;
+  background-color: #dddddd;
+  float: left;
+  width: 15%;
+  padding: 10px 2px 10px 2px;
+  margin: 4px;
+  text-align: center;
+  font-variant: small-caps;
+  font-weight: bold;
+  line-height: 170%;
+  border: 2px solid #000088;
+}
+
+div#content {
+  float: right;
+  height: 100%;
+  width: 82%;
+  padding 1px 4px 1px 4px;
+}
+
+P:first-letter {
+  color: #000055;
+  font-size: larger;
+  font-weight: bold;
+}
+
+A {
+  color: #000066;
+  text-decoration: none;
+}
+
+A:visited {
+  color: #333399;
+}
+
+A:hover {
+  color: #6666bb;
+}
+
+H1 {
+  color: #000088;
+  font-variant: small-caps;
+}

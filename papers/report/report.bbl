@@ -1,0 +1,35 @@
+\begin{thebibliography}{1}\setlength{\itemsep}{-1ex}\small
+
+\bibitem{commonapi}
+F.~Dabek, B.~Zhao, P.~Druschel, J.~Kubiatowicz, and I.~Stoica.
+\newblock Towards a common api for structured p2p overlays.
+\newblock In {\em IPTPS}, 2003.
+
+\bibitem{plaxtonnets}
+G.~Plaxton, R.~Rajaraman, and A.~W. Richa.
+\newblock Accessing nearby copies of replicated objects in a distributed
+  environment.
+\newblock In {\em 9th Annual ACM Symposium on Parallel Algorithms and
+  Architectures}, June 1997.
+
+\bibitem{bamboo-churn}
+S.~Rhea, D.~Geels, T.~Roscoe, and J.~Kubiatowicz.
+\newblock Handling churn in a {DHT}.
+\newblock Technical Report UCB//CSD-03-1299, University of California,
+  Berkeley, December 2003.
+
+\bibitem{pastry}
+A.~Rowstron and P.~Druschel.
+\newblock Pastry: Scalable, decentralized object location and routing for
+  large-scale peer-to-peer systems.
+\newblock In {\em IFIP/ACM International Conference on Distributed Systems
+  Platforms}, 2001.
+
+\bibitem{tapestry}
+B.~Y. Zhao, L.~Huang, J.~Stribling, S.~C. Rhea, A.~D. Joseph, and
+  J.~Kubiatowicz.
+\newblock Tapestry: A resilient global-scale overlay for service deployment.
+\newblock {\em IEEE Journal on Selected Areas in Communications}, 22(1):41--53,
+  January 2004.
+
+\end{thebibliography}

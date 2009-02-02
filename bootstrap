@@ -1,0 +1,8 @@
+#!/bin/sh -x
+# $Id: bootstrap,v 1.1 2005/09/27 18:25:04 msa Exp $
+# Matthew Allen
+
+aclocal
+libtoolize --force --copy
+automake --add-missing --copy
+autoconf

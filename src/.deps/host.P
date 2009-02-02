@@ -1,0 +1,197 @@
+host.o: host.c /usr/include/stdio.h \
+  /usr/include/gentoo-multilib/amd64/stdio.h /usr/include/features.h \
+  /usr/include/gentoo-multilib/amd64/features.h /usr/include/sys/cdefs.h \
+  /usr/include/gentoo-multilib/amd64/sys/cdefs.h \
+  /usr/include/bits/wordsize.h \
+  /usr/include/gentoo-multilib/amd64/bits/wordsize.h \
+  /usr/include/gnu/stubs.h /usr/include/gentoo-multilib/amd64/gnu/stubs.h \
+  /usr/include/gnu/stubs-64.h \
+  /usr/include/gentoo-multilib/amd64/gnu/stubs-64.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/4.1.2/include/stddef.h \
+  /usr/include/bits/types.h \
+  /usr/include/gentoo-multilib/amd64/bits/types.h \
+  /usr/include/bits/typesizes.h \
+  /usr/include/gentoo-multilib/amd64/bits/typesizes.h \
+  /usr/include/libio.h /usr/include/gentoo-multilib/amd64/libio.h \
+  /usr/include/_G_config.h /usr/include/gentoo-multilib/amd64/_G_config.h \
+  /usr/include/wchar.h /usr/include/gentoo-multilib/amd64/wchar.h \
+  /usr/include/bits/wchar.h \
+  /usr/include/gentoo-multilib/amd64/bits/wchar.h /usr/include/gconv.h \
+  /usr/include/gentoo-multilib/amd64/gconv.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/4.1.2/include/stdarg.h \
+  /usr/include/bits/stdio_lim.h \
+  /usr/include/gentoo-multilib/amd64/bits/stdio_lim.h \
+  /usr/include/bits/sys_errlist.h \
+  /usr/include/gentoo-multilib/amd64/bits/sys_errlist.h \
+  /usr/include/bits/stdio.h \
+  /usr/include/gentoo-multilib/amd64/bits/stdio.h /usr/include/string.h \
+  /usr/include/gentoo-multilib/amd64/string.h /usr/include/bits/string.h \
+  /usr/include/gentoo-multilib/amd64/bits/string.h \
+  /usr/include/bits/string2.h \
+  /usr/include/gentoo-multilib/amd64/bits/string2.h /usr/include/endian.h \
+  /usr/include/gentoo-multilib/amd64/endian.h /usr/include/bits/endian.h \
+  /usr/include/gentoo-multilib/amd64/bits/endian.h /usr/include/stdlib.h \
+  /usr/include/gentoo-multilib/amd64/stdlib.h /usr/include/sys/types.h \
+  /usr/include/gentoo-multilib/amd64/sys/types.h /usr/include/time.h \
+  /usr/include/gentoo-multilib/amd64/time.h /usr/include/sys/select.h \
+  /usr/include/gentoo-multilib/amd64/sys/select.h \
+  /usr/include/bits/select.h \
+  /usr/include/gentoo-multilib/amd64/bits/select.h \
+  /usr/include/bits/sigset.h \
+  /usr/include/gentoo-multilib/amd64/bits/sigset.h \
+  /usr/include/bits/time.h /usr/include/gentoo-multilib/amd64/bits/time.h \
+  /usr/include/sys/sysmacros.h \
+  /usr/include/gentoo-multilib/amd64/sys/sysmacros.h \
+  /usr/include/bits/pthreadtypes.h \
+  /usr/include/gentoo-multilib/amd64/bits/pthreadtypes.h \
+  /usr/include/alloca.h /usr/include/gentoo-multilib/amd64/alloca.h \
+  /usr/include/pthread.h /usr/include/gentoo-multilib/amd64/pthread.h \
+  /usr/include/sched.h /usr/include/gentoo-multilib/amd64/sched.h \
+  /usr/include/bits/sched.h \
+  /usr/include/gentoo-multilib/amd64/bits/sched.h /usr/include/signal.h \
+  /usr/include/gentoo-multilib/amd64/signal.h /usr/include/bits/setjmp.h \
+  /usr/include/gentoo-multilib/amd64/bits/setjmp.h /usr/include/errno.h \
+  /usr/include/gentoo-multilib/amd64/errno.h /usr/include/bits/errno.h \
+  /usr/include/gentoo-multilib/amd64/bits/errno.h \
+  /usr/include/linux/errno.h /usr/include/asm/errno.h \
+  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+  ../include/host.h ../include/key.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/4.1.2/include/limits.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/4.1.2/include/syslimits.h \
+  /usr/include/limits.h /usr/include/gentoo-multilib/amd64/limits.h \
+  /usr/include/bits/posix1_lim.h \
+  /usr/include/gentoo-multilib/amd64/bits/posix1_lim.h \
+  /usr/include/bits/local_lim.h \
+  /usr/include/gentoo-multilib/amd64/bits/local_lim.h \
+  /usr/include/linux/limits.h /usr/include/bits/posix2_lim.h \
+  /usr/include/gentoo-multilib/amd64/bits/posix2_lim.h \
+  /usr/include/openssl/evp.h /usr/include/openssl/opensslconf.h \
+  /usr/include/openssl/ossl_typ.h /usr/include/openssl/e_os2.h \
+  /usr/include/openssl/symhacks.h /usr/include/openssl/bio.h \
+  /usr/include/openssl/crypto.h /usr/include/openssl/stack.h \
+  /usr/include/openssl/safestack.h /usr/include/openssl/opensslv.h \
+  /usr/include/openssl/objects.h /usr/include/openssl/obj_mac.h \
+  /usr/include/openssl/asn1.h /usr/include/openssl/bn.h ../include/jrb.h \
+  ../include/jval.h ../include/include.h ../include/network.h \
+  ../include/host.h ../include/message.h ../include/log.h \
+  ../include/dllist.h ../include/jval.h ../include/jrb.h
+host.c :
+/usr/include/stdio.h :
+/usr/include/gentoo-multilib/amd64/stdio.h :
+/usr/include/features.h :
+/usr/include/gentoo-multilib/amd64/features.h :
+/usr/include/sys/cdefs.h :
+/usr/include/gentoo-multilib/amd64/sys/cdefs.h :
+/usr/include/bits/wordsize.h :
+/usr/include/gentoo-multilib/amd64/bits/wordsize.h :
+/usr/include/gnu/stubs.h :
+/usr/include/gentoo-multilib/amd64/gnu/stubs.h :
+/usr/include/gnu/stubs-64.h :
+/usr/include/gentoo-multilib/amd64/gnu/stubs-64.h :
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.1.2/include/stddef.h :
+/usr/include/bits/types.h :
+/usr/include/gentoo-multilib/amd64/bits/types.h :
+/usr/include/bits/typesizes.h :
+/usr/include/gentoo-multilib/amd64/bits/typesizes.h :
+/usr/include/libio.h :
+/usr/include/gentoo-multilib/amd64/libio.h :
+/usr/include/_G_config.h :
+/usr/include/gentoo-multilib/amd64/_G_config.h :
+/usr/include/wchar.h :
+/usr/include/gentoo-multilib/amd64/wchar.h :
+/usr/include/bits/wchar.h :
+/usr/include/gentoo-multilib/amd64/bits/wchar.h :
+/usr/include/gconv.h :
+/usr/include/gentoo-multilib/amd64/gconv.h :
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.1.2/include/stdarg.h :
+/usr/include/bits/stdio_lim.h :
+/usr/include/gentoo-multilib/amd64/bits/stdio_lim.h :
+/usr/include/bits/sys_errlist.h :
+/usr/include/gentoo-multilib/amd64/bits/sys_errlist.h :
+/usr/include/bits/stdio.h :
+/usr/include/gentoo-multilib/amd64/bits/stdio.h :
+/usr/include/string.h :
+/usr/include/gentoo-multilib/amd64/string.h :
+/usr/include/bits/string.h :
+/usr/include/gentoo-multilib/amd64/bits/string.h :
+/usr/include/bits/string2.h :
+/usr/include/gentoo-multilib/amd64/bits/string2.h :
+/usr/include/endian.h :
+/usr/include/gentoo-multilib/amd64/endian.h :
+/usr/include/bits/endian.h :
+/usr/include/gentoo-multilib/amd64/bits/endian.h :
+/usr/include/stdlib.h :
+/usr/include/gentoo-multilib/amd64/stdlib.h :
+/usr/include/sys/types.h :
+/usr/include/gentoo-multilib/amd64/sys/types.h :
+/usr/include/time.h :
+/usr/include/gentoo-multilib/amd64/time.h :
+/usr/include/sys/select.h :
+/usr/include/gentoo-multilib/amd64/sys/select.h :
+/usr/include/bits/select.h :
+/usr/include/gentoo-multilib/amd64/bits/select.h :
+/usr/include/bits/sigset.h :
+/usr/include/gentoo-multilib/amd64/bits/sigset.h :
+/usr/include/bits/time.h :
+/usr/include/gentoo-multilib/amd64/bits/time.h :
+/usr/include/sys/sysmacros.h :
+/usr/include/gentoo-multilib/amd64/sys/sysmacros.h :
+/usr/include/bits/pthreadtypes.h :
+/usr/include/gentoo-multilib/amd64/bits/pthreadtypes.h :
+/usr/include/alloca.h :
+/usr/include/gentoo-multilib/amd64/alloca.h :
+/usr/include/pthread.h :
+/usr/include/gentoo-multilib/amd64/pthread.h :
+/usr/include/sched.h :
+/usr/include/gentoo-multilib/amd64/sched.h :
+/usr/include/bits/sched.h :
+/usr/include/gentoo-multilib/amd64/bits/sched.h :
+/usr/include/signal.h :
+/usr/include/gentoo-multilib/amd64/signal.h :
+/usr/include/bits/setjmp.h :
+/usr/include/gentoo-multilib/amd64/bits/setjmp.h :
+/usr/include/errno.h :
+/usr/include/gentoo-multilib/amd64/errno.h :
+/usr/include/bits/errno.h :
+/usr/include/gentoo-multilib/amd64/bits/errno.h :
+/usr/include/linux/errno.h :
+/usr/include/asm/errno.h :
+/usr/include/asm-generic/errno.h :
+/usr/include/asm-generic/errno-base.h :
+../include/host.h :
+../include/key.h :
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.1.2/include/limits.h :
+/usr/lib/gcc/x86_64-pc-linux-gnu/4.1.2/include/syslimits.h :
+/usr/include/limits.h :
+/usr/include/gentoo-multilib/amd64/limits.h :
+/usr/include/bits/posix1_lim.h :
+/usr/include/gentoo-multilib/amd64/bits/posix1_lim.h :
+/usr/include/bits/local_lim.h :
+/usr/include/gentoo-multilib/amd64/bits/local_lim.h :
+/usr/include/linux/limits.h :
+/usr/include/bits/posix2_lim.h :
+/usr/include/gentoo-multilib/amd64/bits/posix2_lim.h :
+/usr/include/openssl/evp.h :
+/usr/include/openssl/opensslconf.h :
+/usr/include/openssl/ossl_typ.h :
+/usr/include/openssl/e_os2.h :
+/usr/include/openssl/symhacks.h :
+/usr/include/openssl/bio.h :
+/usr/include/openssl/crypto.h :
+/usr/include/openssl/stack.h :
+/usr/include/openssl/safestack.h :
+/usr/include/openssl/opensslv.h :
+/usr/include/openssl/objects.h :
+/usr/include/openssl/obj_mac.h :
+/usr/include/openssl/asn1.h :
+/usr/include/openssl/bn.h :
+../include/jrb.h :
+../include/jval.h :
+../include/include.h :
+../include/network.h :
+../include/host.h :
+../include/message.h :
+../include/log.h :
+../include/dllist.h :
+../include/jval.h :
+../include/jrb.h :

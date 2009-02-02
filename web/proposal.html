@@ -1,0 +1,74 @@
+<html>
+
+<head>
+  <title>Chimera Home Page</title>
+  <link rel="stylesheet" href="./chimera.css" type="text/css">
+</head>
+
+<body>
+
+<div id="container">
+
+  <div id="title">
+    Chimera
+  </div>
+
+  <div id="links">
+    <a href=".">Home</a><br>
+    <a href="proposal.html">Proposal</a><br>
+    <a href="people.html">People</a><br>
+  </div>
+
+  <div id="content">
+
+<h1>Project Proposal</h1>
+
+<p>Our project is to implement a light-weight, optimized, and
+customizable C implementation of a Plaxton Nets style P2P routing and
+publication system. This system will incorporate Tapestry style locality
+optimizations, Pastry stye leaf sets, and Bamboo style soft-state joins as
+deemed appropriate. It will rely on the technical reports that describe
+these various protocols [1, 2, 3], as well as other supplemental papers
+on these protocols.</p>
+
+<p>In order to implement a P2P system with the performance necessary to
+support a real application, it must be highly optimized and portable.
+Experience has shown that efficient Java programming requires the use of
+interfaces that are difficult to understand and debug. Also, performance
+seems to depend highly on external factors like JAVA version and JVM.
+Therefore, a language that can be easily compiled to native binary
+that does not require a virtual machine is desirable. Ideally, this
+implementation would incorporate many optimizations versified by the
+research community to date.</p>
+
+<p>The challenge of this project is largely the workload of implementing
+a complex distributed system in C. Our first step will be to implement
+a simplified version of a UDP based routing infrastructure.  Debugging
+thought development will help work out kinks in this, the most important,
+part of the project. The next step will be to improve the event handling
+interface so the system can sustain a heavy workload of concurrent actions
+and asynchronous events. Finally, we will add locality and soft-state
+optimizations. If possible, we will evaluate a large scale installation
+with a heavy workload on the Planetlab network.</p>
+
+<ul>
+<li>February 1th: Define interface and support functional implementation</li>
+<li>February 7th: Pastry/Tapestry style routing and location infrastructure</li>
+<li>February 14th: Concurrent event handlers with thread queue implementation</li>
+<li>February 15th: (status report)</li>
+<li>February 28th: Locality + soft-state optimizations</li>
+<li>March 7th: Verification and evaluation on Planetlab (as time permits)</li>
+<li>March 10th/15th: (final report/paper due)</li>
+</ul>
+
+<p>Most of the resources for this project are easily attainable (gcc and
+a large collection of lab machines for experimentation). We will need
+a Planetlab slice in order to debug and evaluate the system. We already
+have a login (msa@cs.ucsb.edu) through Kevin Almeroth.</p>
+
+  </div>
+
+</div>
+
+</body>
+</html>

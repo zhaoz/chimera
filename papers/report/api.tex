@@ -1,0 +1,96 @@
+\section{API}
+\label{api}
+
+One of our goals in this project was to provide a flexible API that
+decouples the user application from the underlying peer-to-peer routing
+and lookup system. The Chimera API follows the syntax defined in "Towards
+a Common API for Structured Peer-to-Peer Overlays" \cite{commonapi}. Use of this
+API eases substitution of underlying routing with minimum effort and
+facilitates user level application testing based on different routings.
+
+The Chimera interface consists of two main parts: the routing state access
+and the message upcall interface. The routing state access interface allows
+an application to directly access to routing state information. These calls
+can be used to access routing information and make application level routing
+decisions. The message
+upcall system interfaces with the application based on the
+events in routing layer. We will describe 
+the message upcall interfaces and routing state access 
+in detail in sections \ref{upcall-api} and
+\ref{routing-api}.
+
+The functions describe the core interface to the Chimera systems. Other
+functions to exist to fine tune Chimera performance and behavior, but
+those functions are left to technical documentation.
+
+\subsection{Message Upcalls}
+\label{upcall-api}
+
+All the upcall functions take a function pointer as their only
+argument. This variable points to a function provided by the application
+that is declared as described. This system allows the user to respond
+to events that occur in the routing layer. They also allow the applications
+to make changes to some of the decisions made by Chimera. There are three
+upcalls, and they are described here.
+
+{\noindent \bf typedef void (*chimera\_update\_upcall\_t)(Key *key, ChimeraHost *host, int joined);}\\
+{\noindent \bf void chimera\_update(chimera\_update\_upcall\_t func);}
+
+The update upcall function is called when a {\em host} with a given
+{\em key} leaves or joins local node's leaf set. The {\em joined} integer
+is 0 if the node leaves the leaf set and 1 if it joins the leaf set.
+
+{\noindent \bf typedef void (*chimera\_forward\_upcall\_t)(Key **key, Message **msg, ChimeraHost **host);}\\
+{\noindent \bf void chimera\_forward(chimera\_forward\_upcall\_t func);}
+
+The forward upcall informs application that routing layer is about to forward
+a message {\em msg} towards the destination {\em key} via a {\em host}.
+This upcall allows the application to
+modify any of the parameters to override the routing decisions made by
+the Chimera routing layer. This allows the application to change the next
+hope, the message, or the destination key.
+
+{\noindent \bf typedef void (*chimera\_deliver\_upcall\_t)(Key *key, Message *msg);}\\
+{\noindent \bf void chimera\_deliver(chimera\_deliver\_upcall\_t func);}
+
+This upcall occurs when the current node receives a message {\em msg} destined
+for a {\em key} that is responsible for. This upcall indicates that the
+message has reached its final destination.
+
+\subsection{Routing}
+\label{routing-api}
+
+This API allows the application to access routing state and
+pass down application routing preferences. Application layer feedback
+to the routing layer provides the application with the flexibility to
+enforce its policy on the underlying peer-to-peer routing and lookup
+system without needing to modify the routing mechanism.
+
+{\noindent \bf ChimeraHost **route\_lookup(Key key, int count, int is\_safe)}
+
+This call
+returns an array of at least {\em count} ChimeraHost structures that
+represent acceptable next hops on a route toward a {\em key}. This
+version of Chimera ignores {\em is\_safe}
+and {\em count} variables, but we keep them in the syntax
+for future compatibility. The current version of Chimera returns only the
+best next hop based on routing protocol that we described in section
+\ref{routing-api}. If there is no hop closer than the local host, and the
+message has reached its destination, this function returns NULL.
+
+{\noindent \bf void chimera\_route(Key *key, Message *msg, ChimeraHost *hint)}
+
+The chimera\_route function will send a message {\em msg}
+through the Chimera routing layer to the destination {\em key}. If the {\em
+hint} option is not NULL, the system will use the provided host as its
+next hop. This call will cause either a chimera\_deliver or a 
+chimera\_forward upcall, described in section \ref{upcall-api}. This will
+eventually route the message to the key root in the existing overlay.
+
+{\noindent \bf ChimeraHost **route\_neighbors(int count)}
+
+This call will return an array of
+the {\em count} closest nodes in the leaf set of the local node. The
+returned array is NULL terminated, so that if there are not enough hosts
+in the leaf set to service the request the array will be terminated early.
+

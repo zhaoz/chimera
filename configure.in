@@ -1,0 +1,12 @@
+# initalization
+AC_INIT(libchimera, 1.4)
+AM_INIT_AUTOMAKE(libchimera, 1.4)
+
+# libtool macros
+AC_DISABLE_SHARED
+AC_PROG_LIBTOOL
+
+# program tests
+AC_PROG_CC
+
+AC_OUTPUT(Makefile src/Makefile test/Makefile)

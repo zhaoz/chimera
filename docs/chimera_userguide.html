@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>UserGuid</title>
+</head>
+<body>
+<big><span style="font-weight: bold;"><big><br>
+Chimera User's Guide</big><br>
+</span></big>
+<hr style="width: 100%; height: 2px;"><big><span
+ style="font-weight: bold;"><br>
+How to write an application using Chimera ?<br>
+<br>
+</span></big>
+<div style="text-align: justify;"><big><small>Before writing an
+application on Chimera make sure that you read Chimera API section in <a
+ href="chimera_arc_and_api.html"><span style="font-style: italic;">Chimera
+Architecture &amp; API</span></a> document
+first. In Chimera API we explain basic interface for interacting with
+Chimera. In the same document we also provide a brief overview of
+Chimera architecture that helps to get a general overview of the
+system. We also provide a very basic chat application called test.c in
+test folder, as a simple example of how to utilize Chimera API.</small></big><br>
+</div>
+<big><small><br>
+</small></big>
+<div style="text-align: justify;"><big><small>The only header file that
+you need to include in your application is "chimera.h". After that the
+very first step in writing an application for Chimera is initializing
+the Chimera system by calling </small></big><big><small><span
+ style="font-family: courier new,courier,monospace;">chimera_init(int
+port).</span></small></big><big><small>The second main step is writing
+the three up-call functions for<span style="font-style: italic;"><span
+ style="font-style: italic;"> </span>forward, deliver, and update </span>Chimera
+events. As explained in section 2.2 of the Chimera API document, the
+provided functions will be called every time the associated events
+occurs in the Chimera system. A simple example for an update function
+could be: </small></big><br>
+</div>
+<span style="font-family: courier new,courier,monospace;"></span><big><small>&nbsp;&nbsp;&nbsp;
+<br>
+</small></big>
+<div style="text-align: justify;"><big><small><span
+ style="font-family: courier new,courier,monospace;">void
+test_update(Key *k, ChimeraHost *h, int joined) {</span></small></big><br
+ style="font-family: courier new,courier,monospace;">
+<big><small><span style="font-family: courier new,courier,monospace;">&nbsp;
+if(joined) {</span></small></big><br
+ style="font-family: courier new,courier,monospace;">
+<big><small><span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+fprintf(stderr,"Node %s:%s:%d joined neighbor set\n", k-&gt;keystr,
+h-&gt;name, h-&gt;port);</span></small></big><br
+ style="font-family: courier new,courier,monospace;">
+<big><small><span style="font-family: courier new,courier,monospace;">&nbsp;
+}</span></small></big><br
+ style="font-family: courier new,courier,monospace;">
+<big><small><span style="font-family: courier new,courier,monospace;">&nbsp;
+else {</span></small></big><br
+ style="font-family: courier new,courier,monospace;">
+<big><small><span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+fprintf(stderr,"Node %s:%s:%d leaving neighbor set\n", k-&gt;keystr,
+h-&gt;name, h-&gt;port);</span></small></big><br
+ style="font-family: courier new,courier,monospace;">
+<big><small><span style="font-family: courier new,courier,monospace;">&nbsp;
+}</span></small></big><br
+ style="font-family: courier new,courier,monospace;">
+<big><small><span style="font-family: courier new,courier,monospace;">}</span></small></big><br>
+</div>
+<big><small><br>
+</small></big>
+<div style="text-align: justify;"><big><small>In this example every
+time a node joins or leaves the leaf set a message will be printed to
+the screen informing the user as event happens. </small></big><br>
+<big><small>These up-calls then should be associated to their
+appropriate events by passing them to the associated message up-calls.
+e.g: chimera_update(test_update)<br>
+<br>
+</small></big></div>
+<div style="text-align: justify;"><big><small>An application can
+utilize Chimera messaging subsystem by defining an integer message type
+and registering it with chimera_register(int type) function. Be aware
+that types 1 to 10 are reserved for internal chimera message types.
+This step is necessary for messaging subsystem to recognize message
+type, unrecognized message types will be dropped. However this version
+of Chimera does not provide mechanism for associating a message type
+with a function in messaging subsystem,&nbsp; users can mimic this
+functionality in their up-call functions. In another words, users can
+decide what to do with message by examining the message type in
+provided up-call functions. To demonstrate this take a look at the
+following deliver function : </small></big><br>
+</div>
+<big><small><br>
+</small></big>
+<div style="text-align: justify;"><big><small><span
+ style="font-family: courier new,courier,monospace;">#define </span></small></big><span
+ style="font-family: courier new,courier,monospace;">TEST_CHAT 15</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">void
+chat_deliver(Key *k, Message *m) {</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;if(m-&gt;type
+== TEST_CHAT) {&nbsp;&nbsp; </span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;&nbsp;&nbsp;
+fprintf(stderr,"** %s **\n", m-&gt;payload);</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">&nbsp;}</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">}</span><br>
+<span style="font-family: courier new,courier,monospace;"></span></div>
+<span style="font-family: courier new,courier,monospace;"><br>
+</span>
+<div style="text-align: justify;">In this example every time a message
+is delivered to the local node, the message type is examined and if the
+type is TEST_CHAT then the message payload is printed to the screen. <br>
+<div style="text-align: left;">After registering different message
+types and providing their functionality in up-calls, you can use
+chimera_join( ChimeraHost *bootstrap) to join the network that host
+bootstrap belongs to. If bootstrap is NULL then the caller starts the
+system. At this point you can use chimera_send function to route
+through routing subsystem. <br>
+</div>
+<br style="color: rgb(255, 0, 0);">
+<span style="color: rgb(255, 0, 0);"></span><big><small>Other than the
+test.c that is a very simple
+application to show how to develop application on top of chimera
+overlay, we also included one of our test beds. The
+test main file is "bigtest.c" that can be found under
+&lt;chimera_folder&gt;/test/.&nbsp; The bigtest uses "bighost.c" which
+is very similar to test.c chat application. To run bigtest.c first
+create a set of random keys from "sha1_keygen <span
+ style="font-style: italic;">#num_keys hostname</span>" and save them
+to a
+file called <span style="font-style: italic;">hosts</span>. then run
+bigtest. bigtest calls bighost and create the network and pick a random
+source
+from hosts and random destination from key space and route message from
+source to destination. It also output the logs than can be parsed to
+create the graph to see the average hop count. </small></big><br>
+<br>
+<br>
+</div>
+&nbsp; Rama Alebouyeh<br>
+<img alt="rama" src="contact.jpeg" style="width: 175px; height: 25px;"><br>
+&nbsp; Last updated&nbsp; 02/16/06<br>
+<span style="font-family: courier new,courier,monospace;"></span><br>
+<br>
+<br>
+<br>
+<big><small><br>
+</small><span style="font-weight: bold;"><small><span
+ style="font-weight: bold;"></span></small></span></big>
+</body>
+</html>

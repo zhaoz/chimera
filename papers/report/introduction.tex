@@ -1,0 +1,40 @@
+\section{Introduction}
+\label{introduction}
+
+In this paper, we describe the present state of our work in implementing
+Chimera, a library that implements a structured, peer-to-peer system.
+This work is an attempt to provide a library that allows easy development
+of applications on top of a peer-to-peer routing infrastructure. The goals
+are twofold. First, we wanted to make a fast, lightweight, C implantation
+of a Tapestry-like system includes some of the optimizations provided by
+other systems. Second, we wanted to develop a system designed to export
+an API in line with existing work that describes how to effectively
+interface with such an overlay network.
+
+Chimera succeeds at these goals. The library implements a routing
+infrastructure much like those provided by Tapestry and Pastry. The system
+contains both a leaf set of neighbor nodes, which provides fault tolerance
+and a probabilistic invariant of constant routing progress. It also provides a PRR
+style routing table to improve routing time to a logarithmic factor of
+network size. Using this library, developers can build an application
+that creates an overlay network with a limited number of library calls.
+They can implement their own application by providing a series of
+upcalls that are called by the library in response to certain overlay
+network events.
+
+The library we developed will serve as both a
+useable interface and a starting point for further research. This library
+implements a relatively complete version of a structured peer-to-peer
+system we described. It includes some of the current work in locality
+optimization and soft-state operations. It also provides an interface
+that can be used as is to develop applications, but that will allow for
+the infrastructure to be changed with little impact on existing
+application code.
+
+This paper will proceed as follows. In section \ref{design}, we will
+describe the components of our system and the design decisions that led
+to the current state of the implementation. In section \ref{api},
+we will describe the specific API that the current system exports. And,
+in section \ref{results}, we discuss how this system currently
+performs.
+
