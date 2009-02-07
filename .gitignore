@@ -2,3 +2,5 @@
 config.log
 config.status
 Makefile
+build
+libtool
