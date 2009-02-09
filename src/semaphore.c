@@ -71,13 +71,10 @@ int sema_p (void *v, double time)
 			time = 0.1;
 		    gettimeofday (&now, NULL);
 		    sec = (unsigned long) time;
-		    nsec =
-			(unsigned long) ((time - (double) sec) *
-					 1000000000.0);
+		    nsec = (unsigned long) ((time - (double) sec) * 1000000000.0);
 		    timeout.tv_sec = now.tv_sec + sec;
 		    timeout.tv_nsec = (now.tv_usec * 1000) + nsec;
-		    ret =
-			pthread_cond_timedwait (&s->cond, &s->lock, &timeout);
+		    ret = pthread_cond_timedwait (&s->cond, &s->lock, &timeout);
 		}
 	}
     pthread_mutex_unlock (&s->lock);
