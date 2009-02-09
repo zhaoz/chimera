@@ -59,7 +59,7 @@ key.o: key.c /usr/include/stdio.h \
   /usr/include/openssl/stack.h /usr/include/openssl/safestack.h \
   /usr/include/openssl/opensslv.h /usr/include/openssl/objects.h \
   /usr/include/openssl/obj_mac.h /usr/include/openssl/asn1.h \
-  /usr/include/openssl/bn.h ../include/key.h \
+  /usr/include/openssl/bn.h ../include/include.h ../include/key.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/4.1.2/include/limits.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/4.1.2/include/syslimits.h \
   /usr/include/limits.h /usr/include/gentoo-multilib/amd64/limits.h \
@@ -157,6 +157,7 @@ key.c :
 /usr/include/openssl/obj_mac.h :
 /usr/include/openssl/asn1.h :
 /usr/include/openssl/bn.h :
+../include/include.h :
 ../include/key.h :
 /usr/lib/gcc/x86_64-pc-linux-gnu/4.1.2/include/limits.h :
 /usr/lib/gcc/x86_64-pc-linux-gnu/4.1.2/include/syslimits.h :

@@ -6,3 +6,4 @@ build
 libtool
 tags
 *.a
+.deps

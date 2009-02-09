@@ -49,7 +49,11 @@ log.o: log.c /usr/include/stdio.h \
   /usr/include/bits/pthreadtypes.h \
   /usr/include/gentoo-multilib/amd64/bits/pthreadtypes.h \
   /usr/include/alloca.h /usr/include/gentoo-multilib/amd64/alloca.h \
-  ../include/log.h
+  /usr/include/string.h /usr/include/gentoo-multilib/amd64/string.h \
+  /usr/include/bits/string.h \
+  /usr/include/gentoo-multilib/amd64/bits/string.h \
+  /usr/include/bits/string2.h \
+  /usr/include/gentoo-multilib/amd64/bits/string2.h ../include/log.h
 log.c :
 /usr/include/stdio.h :
 /usr/include/gentoo-multilib/amd64/stdio.h :
@@ -117,4 +121,10 @@ log.c :
 /usr/include/gentoo-multilib/amd64/bits/pthreadtypes.h :
 /usr/include/alloca.h :
 /usr/include/gentoo-multilib/amd64/alloca.h :
+/usr/include/string.h :
+/usr/include/gentoo-multilib/amd64/string.h :
+/usr/include/bits/string.h :
+/usr/include/gentoo-multilib/amd64/bits/string.h :
+/usr/include/bits/string2.h :
+/usr/include/gentoo-multilib/amd64/bits/string2.h :
 ../include/log.h :
