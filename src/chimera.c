@@ -401,7 +401,7 @@ void chimera_route (ChimeraState * state, Key * key, Message * message,
      ** its information is already in the routing table  ****/
 
     if ((tmp[0] != NULL) && (message->type == CHIMERA_JOIN)
-	&& (key_equal (tmp[0]->key, *key)))
+			&& (key_equal (tmp[0]->key, *key)))
 	{
 	    free (tmp);
 	    tmp = route_lookup (state, *key, 2, 0);
