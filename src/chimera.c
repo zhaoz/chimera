@@ -787,8 +787,7 @@ void chimera_join (ChimeraState * state, ChimeraHost * bootstrap)
 
     chglob->bootstrap = host_get (state, bootstrap->name, bootstrap->port);
 
-    message =
-	message_create (chglob->me->key, CHIMERA_JOIN, strlen (name) + 1,
+    message = message_create (chglob->me->key, CHIMERA_JOIN, strlen (name) + 1,
 			name);
     if (!message_send (state, bootstrap, message, TRUE))
 	{
