@@ -7,3 +7,7 @@ libtool
 tags
 *.a
 .deps
+Makefile.in
+autom4te.cache
+autoscan*.log
+configure.scan
