@@ -26,7 +26,7 @@ typedef struct PriqueueEntry{
 	char *data; // what to send?
 	int datasize; // how big is it?
 	int retry; // number of retries
-	unsigned long seqnum; // seqnum to identify the packet to be retransmitted
+	uint32_t seqnum; // seqnum to identify the packet to be retransmitted
 	double transmittime; // this is the time the packet is transmitted (or retransmitted)
 }PQEntry;
 
@@ -38,7 +38,7 @@ typedef struct AcknowledgEntry{
 /** network_address:
  ** returns the ip address of the #hostname#
  */
-unsigned long network_address (void *networkglobal, char *hostname);
+uint32_t network_address (void *networkglobal, char *hostname);
 
 /** network_init:
  ** initiates the networking layer by creating socket and bind it to #port# 
@@ -62,7 +62,7 @@ void *retransmit_packets(void *state);
  ** type are 1 or 2, 1 indicates that the data should be acknowledged by the
  ** receiver, and 2 indicates that no ack is necessary.
  */
-int network_send (void *state, ChimeraHost * host, char *data, int size,
-		  unsigned long type);
+int network_send (void *state, ChimeraHost * host, char *data, uint32_t size,
+		  int32_t type);
 
 #endif /* _CHIMERA_NETWORK_H_ */

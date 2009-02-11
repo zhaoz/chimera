@@ -33,7 +33,7 @@ typedef struct
 {
     int sock;
     JRB waiting;
-    unsigned long seqstart, seqend;
+    uint32_t seqstart, seqend;
     pthread_mutex_t lock;
 	JRB retransmit;
 } NetworkGlobal;
@@ -64,13 +64,13 @@ AckEntry* get_new_ackentry()
 /** network_address:
  ** returns the ip address of the #hostname#
  */
-unsigned long network_address (void *networkglobal, char *hostname)
+uint32_t network_address (void *networkglobal, char *hostname)
 {
 
     int is_addr;
     struct hostent *he;
-    unsigned long addr;
-    unsigned long local;
+    uint32_t addr;
+    uint32_t local;
     int i;
     NetworkGlobal *netglob = (NetworkGlobal *) networkglobal;
 
@@ -95,9 +95,9 @@ unsigned long network_address (void *networkglobal, char *hostname)
 
     pthread_mutex_lock (&(netglob->lock));
     if (is_addr)
-	he = gethostbyaddr ((char *) &addr, sizeof (addr), AF_INET);
+		he = gethostbyaddr ((char *) &addr, sizeof (addr), AF_INET);
     else
-	he = gethostbyname (hostname);
+		he = gethostbyname (hostname);
 
     if (he == NULL)
 	{
@@ -107,9 +107,9 @@ unsigned long network_address (void *networkglobal, char *hostname)
 
     /* make sure the machine is not returning localhost */
 
-    addr = *(unsigned long *) he->h_addr_list[0];
+    addr = *(uint32_t *) he->h_addr_list[0];
     for (i = 1; he->h_addr_list[i] != NULL && addr == local; i++)
-	addr = *(unsigned long *) he->h_addr_list[i];
+	addr = *(uint32_t *) he->h_addr_list[i];
     pthread_mutex_unlock (&(netglob->lock));
 
     return (addr);
@@ -303,7 +303,7 @@ void *network_activate (void *state)
     char data[SEND_SIZE];
     struct sockaddr_in from;
     int socklen = sizeof (from);
-    unsigned long ack, seq;
+    uint32_t ack, seq;
     JRB node;
     ChimeraState *chstate = (ChimeraState *) state;
     NetworkGlobal *ng = (NetworkGlobal *) chstate->network;
@@ -335,10 +335,10 @@ void *network_activate (void *state)
 				 "network: recvfrom: %s\n", strerror (errno));
 		    continue;
 		}
-	    memcpy (&ack, data, sizeof (unsigned long));
+	    memcpy (&ack, data, sizeof (uint32_t));
 	    ack = ntohl (ack);
-	    memcpy (&seq, data + sizeof (unsigned long),
-		    sizeof (unsigned long));
+	    memcpy (&seq, data + sizeof (uint32_t),
+		    sizeof (uint32_t));
 	    seq = ntohl (seq);
 
 	    /* process acknowledgement */
@@ -369,11 +369,11 @@ void *network_activate (void *state)
 		  if (LOGS)
 		    log_message (chstate->log, LOG_NETWORKDEBUG,
 				 "network_activate: received message seq=%d  data:%s\n",
-				 seq, data + (2 * sizeof (unsigned long)));
+				 seq, data + (2 * sizeof (uint32_t)));
 		    ack = htonl (0);
-		    memcpy (data, &ack, sizeof (unsigned long));
+		    memcpy (data, &ack, sizeof (uint32_t));
 		    retack =
-			sendto (ng->sock, data, 2 * sizeof (unsigned long), 0,
+			sendto (ng->sock, data, 2 * sizeof (uint32_t), 0,
 				(struct sockaddr *) &from, sizeof (from));
 		    if (retack < 0)
 			{
@@ -388,14 +388,14 @@ void *network_activate (void *state)
 				   "network_activate: sent out ack for  message seq=%d\n",
 				   seq);
 		    message_received (state,
-				      data + (2 * sizeof (unsigned long)),
-				      ret - (2 * sizeof (unsigned long)));
+				      data + (2 * sizeof (uint32_t)),
+				      ret - (2 * sizeof (uint32_t)));
 		}
 	    else if (ack == 2)
 		{
 		    message_received (state,
-				      data + (2 * sizeof (unsigned long)),
-				      ret - (2 * sizeof (unsigned long)));
+				      data + (2 * sizeof (uint32_t)),
+				      ret - (2 * sizeof (uint32_t)));
 		}
 	    else
 		{
@@ -411,12 +411,12 @@ void *network_activate (void *state)
  ** network_send: host, data, size
  ** Sends a message to host, updating the measurement info.
  */
-int network_send (void *state, ChimeraHost * host, char *data, int size,
-		  unsigned long ack)
+int network_send (void *state, ChimeraHost * host, char *data, uint32_t size,
+		  int32_t ack)
 {
     struct sockaddr_in to;
     int ret, retval;
-    unsigned long seq, seqnumbackup, ntype;
+    uint32_t seq, seqnumbackup, ntype;
 	int sizebackup;
     char s[SEND_SIZE];
     void *semaphore;
@@ -460,10 +460,10 @@ int network_send (void *state, ChimeraHost * host, char *data, int size,
 
     /* create network header */
     ntype = htonl (ack);
-    memcpy (s, &ntype, sizeof (unsigned long));
-    memcpy (s + sizeof (unsigned long), &seq, sizeof (unsigned long));
-    memcpy (s + (2 * sizeof (unsigned long)), data, size);
-    size += (2 * sizeof (unsigned long));
+    memcpy (s, &ntype, sizeof (uint32_t));
+    memcpy (s + sizeof (uint32_t), &seq, sizeof (uint32_t));
+    memcpy (s + (2 * sizeof (uint32_t)), data, size);
+    size += (2 * sizeof (uint32_t));
 
     /* send data */
     seq = ntohl (seq);
@@ -556,7 +556,8 @@ int network_send (void *state, ChimeraHost * host, char *data, int size,
 /**
  ** Resends a message to host
  */
-int network_resend (void *state, ChimeraHost *host, char *data, int size, int ack, unsigned long seqnum, double *transtime)
+int network_resend (void *state, ChimeraHost *host, char *data, int size, 
+					int ack, uint32_t seqnum, double *transtime)
 {
 	struct sockaddr_in to;
 	int ret, retval;
@@ -570,14 +571,14 @@ int network_resend (void *state, ChimeraHost *host, char *data, int size, int ac
 	to.sin_addr.s_addr = host->address;
 	to.sin_port = htons ((short) host->port);
 
-	unsigned long seq = htonl (seqnum);
+	uint32_t seq = htonl (seqnum);
 
 	/* create network header */
-	unsigned long ntype = htonl (ack);
-	memcpy (s, &ntype, sizeof (unsigned long));
-	memcpy (s + sizeof (unsigned long), &seq, sizeof (unsigned long));
-	memcpy (s + (2 * sizeof (unsigned long)), data, size);
-	size += (2 * sizeof (unsigned long));
+	uint32_t ntype = htonl (ack);
+	memcpy (s, &ntype, sizeof (uint32_t));
+	memcpy (s + sizeof (uint32_t), &seq, sizeof (uint32_t));
+	memcpy (s + (2 * sizeof (uint32_t)), data, size);
+	size += (2 * sizeof (uint32_t));
 
 	/* send data */
 	seq = ntohl (seq);

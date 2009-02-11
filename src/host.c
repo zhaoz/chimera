@@ -106,7 +106,7 @@ ChimeraHost *host_get (ChimeraState * state, char *hostname, int port)
 
     JRB node;
     Dllist dllnode;
-    unsigned long address;
+    uint32_t address;
     CacheEntry *tmp, *entry;
     unsigned char *ip;
     char id[256];

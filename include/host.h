@@ -20,7 +20,7 @@
 typedef struct
 {
     char *name;
-    unsigned long address;
+    uint32_t address;
     int failed;
     double failuretime;
     int port;

@@ -24,7 +24,7 @@
 /* message on the wire is encoded in the following way:
 ** [ type ] [ size ] [ key ] [ data ] */
 
-#define HEADER_SIZE (sizeof(unsigned long) + sizeof(unsigned long) + KEY_SIZE/BASE_B + 1)
+#define HEADER_SIZE (sizeof(int32_t) + sizeof(int32_t) + KEY_SIZE/BASE_B + 1)
 
 typedef struct
 {
@@ -49,7 +49,7 @@ typedef struct
  **  [ type ] [ size ] [ key ] [ data ]. It return the created message structure.
  ** 
  */
-Message *message_create (Key dest, int type, int size, char *payload)
+Message *message_create (Key dest, int32_t type, uint32_t size, char *payload)
 {
 
     Message *message;
@@ -199,11 +199,11 @@ void message_receiver (void *chstate, Message * message)
  ** is called by network_activate and will be passed received data and size from socket
  **
  */
-void message_received (void *chstate, char *data, int size)
+void message_received (void *chstate, char *data, uint32_t size)
 {
 
-    unsigned long msgtype;
-    unsigned long msgsize;
+    int32_t msgtype;
+    uint32_t msgsize;
     //  unsigned long msgdest;
     Key msgdest;
     Message *message;
@@ -219,15 +219,15 @@ void message_received (void *chstate, char *data, int size)
 
 
     /* decode message and create Message structure */
-    memcpy (&msgtype, data, sizeof (unsigned long));
+    memcpy (&msgtype, data, sizeof (int32_t));
     msgtype = ntohl (msgtype);
-    memcpy (&msgsize, data + sizeof (unsigned long), sizeof (unsigned long));
+    memcpy (&msgsize, data + sizeof (int32_t), sizeof (int32_t));
     msgsize = ntohl (msgsize);
 
-    str_to_key (data + (2 * sizeof (unsigned long)), &msgdest);
+    str_to_key (data + (2 * sizeof (int32_t)), &msgdest);
 
     message =
-	message_create (msgdest, (int) msgtype, (int) msgsize,
+	message_create (msgdest, (int32_t) msgtype, (uint32_t) msgsize,
 			data + HEADER_SIZE);
 
     jargs->state = state;
@@ -279,7 +279,8 @@ int message_send (void *chstate, ChimeraHost * host, Message * message,
 		  Bool retry)
 {
 	char *data;
-	unsigned long size, type, ack;
+	int32_t type;
+	uint32_t size, ack;
 	int i, ret = 0;
 	ChimeraState *state = (ChimeraState *) chstate;
 	MessageGlobal *msgglob = (MessageGlobal *) state->message;
@@ -297,11 +298,11 @@ int message_send (void *chstate, ChimeraHost * host, Message * message,
 	data = (char *) malloc (sizeof (char) * size);
 
 	/* encode the message */
-	type = htonl ((unsigned long) message->type);
-	memcpy (data, &type, sizeof (unsigned long));
-	size = htonl ((unsigned long) message->size);
-	memcpy (data + sizeof (unsigned long), &size, sizeof (unsigned long));
-	memcpy (data + (2 * sizeof (unsigned long)),
+	type = htonl ((int32_t) message->type);
+	memcpy (data, &type, sizeof (int32_t));
+	size = htonl ((uint32_t) message->size);
+	memcpy (data + sizeof (uint32_t), &size, sizeof (uint32_t));
+	memcpy (data + (2 * sizeof (int32_t)),
 			get_key_string (&message->dest),
 			strlen (get_key_string (&message->dest)));
 	memcpy (data + HEADER_SIZE, message->payload, message->size);

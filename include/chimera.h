@@ -12,6 +12,7 @@
 #include "key.h"
 #include "log.h"
 #include <pthread.h>
+#include <stdint.h>
 #include "message.h"
 #include "semaphore.h"
 #include "include.h"
@@ -94,7 +95,7 @@ void chimera_register (ChimeraState * state, int type, int ack);
  ** send data through the Chimera system and deliver it to the host closest to the
  ** key 
  */
-void chimera_send (ChimeraState * state, Key key, int type, int len,
+void chimera_send (ChimeraState * state, Key key, int32_t type, uint32_t len,
 		   char *data);
 
 /**

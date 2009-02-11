@@ -105,7 +105,7 @@ ChimeraHost **chimera_decodehosts (ChimeraState * state, char *s)
  */
 void chimera_send_rowinfo (ChimeraState * state, Message * message)
 {
-    int size;
+    int32_t size;
     ChimeraHost **rowinfo;
     char s[NETWORK_PACK_SIZE];
     ChimeraHost *host;
@@ -389,7 +389,7 @@ void chimera_route (ChimeraState * state, Key * key, Message * message,
     ChimeraHost **tmp;
     //ChimeraHost **piggy;
     Message *real;
-    unsigned long size;
+    uint32_t size;
     char s[NETWORK_PACK_SIZE];
     ChimeraGlobal *chglob = (ChimeraGlobal *) state->chimera;
 
@@ -807,13 +807,13 @@ void chimera_join (ChimeraState * state, ChimeraHost * bootstrap)
  ** send data through the Chimera system and deliver it to the host closest to the
  ** key. 
  */
-void chimera_send (ChimeraState * state, Key key, int type, int size,
+void chimera_send (ChimeraState * state, Key key, int32_t type, uint32_t size,
 		   char *data)
 {
 
     Message *message;
     char s[NETWORK_PACK_SIZE];
-    unsigned long realsize;
+    uint32_t realsize;
     ChimeraGlobal *chglob = (ChimeraGlobal *) state->chimera;
 
     /*
@@ -821,10 +821,10 @@ void chimera_send (ChimeraState * state, Key key, int type, int size,
      * why it's necessary even if it worked.
      */
 #if 0
-    realsize = htonl ((unsigned long) size);
-    memcpy (s, &realsize, sizeof (unsigned long));
-    memcpy (s + sizeof (unsigned long), data, size);
-    size += sizeof (unsigned long);
+    realsize = htonl ((uint32_t) size);
+    memcpy (s, &realsize, sizeof (uint32_t));
+    memcpy (s + sizeof (uint32_t), data, size);
+    size += sizeof (uint32_t);
 #endif
 
     message = message_create (key, type, size, data);

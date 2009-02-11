@@ -21,11 +21,11 @@
 typedef struct
 {
     Key dest;
-    int type;			/* message type */
-    int size;
+    int32_t type;			/* message type */
+    uint32_t size;
     char *payload;
     Key source;			/* for future security enhancement */
-    unsigned long seqNum;	/* for future security enhancement */
+    uint32_t seqNum;	/* for future security enhancement */
 } Message;
 
 
@@ -44,7 +44,7 @@ void *message_init (void *chstate, int port);
  ** is called by network_activate and will be passed received data and size from socket
  **
  */
-void message_received (void *chstate, char *data, int size);
+void message_received (void *chstate, char *data, uint32_t size);
 
 /**
  ** registers the handler function #func# with the message type #type#,
@@ -67,6 +67,6 @@ int message_send (void *chstate, ChimeraHost * host, Message * message,
  **  [ type ] [ size ] [ key ] [ data ]. It return the created message structure.
  ** 
  */
-Message *message_create (Key dest, int type, int size, char *payload);
+Message *message_create (Key dest, int32_t type, uint32_t size, char *payload);
 
 #endif /* _CHIMERA_MESSAGE_H_ */
