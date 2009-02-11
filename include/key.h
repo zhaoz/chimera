@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <openssl/evp.h>
 #include <string.h>
+#include <stdint.h>
 
 #define KEY_SIZE 160
 
@@ -30,7 +31,7 @@
 
 typedef struct
 {
-    unsigned long t[5];
+    uint32_t t[5];
     char keystr[KEY_SIZE / BASE_B + 1];	/* string representation of key in hex */
     short int valid;		// indicates if the keystr is most up to date with value in key
 } Key;
@@ -45,10 +46,10 @@ Key Key_Half;
 ** assign sha1 hash of the string #s# to #hashed# */
 
 void key_makehash (void *logs, Key * hashed, char *s);
-
+char* sha1_keygen(const char*, size_t, char*);
 
 /* key_make_hash */
-void key_make_hash (Key * hashed, char *s, size_t size);
+void key_make_hash (Key * hashed, const char *s, size_t size);
 
 /* key_init: 
 ** initializes Key_Max and Key_Half */
@@ -95,7 +96,7 @@ void key_assign (Key * k1, Key k2);
 /* key_assign_ui: k1, ul
 ** copies #ul# to the least significant 32 bits of #k# */
 
-void key_assign_ui (Key * k, unsigned long ul);
+void key_assign_ui (Key * k, uint32_t ul);
 
 /* key_equal:k1, k2 
 ** return 1 if #k1#==#k2# 0 otherwise*/
@@ -105,7 +106,7 @@ int key_equal (Key k1, Key k2);
 /* key_equal_ui:k1, ul
 ** return 1 if the least significat 32 bits of #k1#==#ul# 0 otherwise */
 
-int key_equal_ui (Key k, unsigned long ul);
+int key_equal_ui (Key k, uint32_t ul);
 
 /*key_comp: k1, k2
 ** returns >0 if k1>k2, <0 if k1<k2, and 0 if k1==k2 */

@@ -14,7 +14,7 @@ void key_print (Key k)
     char base4str[KEY_SIZE];	// 
 
     for (i = 4; i >= 0; i--)
-	sprintf (hexstr, "%08x", (unsigned int) k.t[i]);
+	sprintf (hexstr, "%08x", k.t[i]);
 
     if (IS_BASE_16)
 	{
@@ -53,17 +53,17 @@ void key_to_str (Key * k)
 	{
 	    memset (k->keystr, 0, KEY_SIZE / BASE_B + 1);
 	    sprintf (k->keystr, "%08x%08x%08x%08x%08x",
-		     (unsigned int) k->t[4], (unsigned int) k->t[3],
-		     (unsigned int) k->t[2], (unsigned int) k->t[1],
-		     (unsigned int) k->t[0]);
+ 		     k->t[4], k->t[3],
+ 		     k->t[2], k->t[1],
+ 		     k->t[0]);
 	}
     else
 	// if we need base4, then convert base16 to base4
     if (IS_BASE_4)
 	{
 	    sprintf (temp, "%08x%08x%08x%08x%08x", (unsigned int) k->t[4],
-		     (unsigned int) k->t[3], (unsigned int) k->t[2],
-		     (unsigned int) k->t[1], (unsigned int) k->t[0]);
+		     k->t[3], k->t[2],
+		     k->t[1], k->t[0]);
 
 	    hex_to_base4 (temp, k->keystr);
 	}
@@ -139,7 +139,7 @@ void key_assign (Key * k1, Key k2)
     key_to_str (k1);
 }
 
-void key_assign_ui (Key * k, unsigned long ul)
+void key_assign_ui (Key * k, uint32_t ul)
 {
     int i;
     for (i = 1; i < 5; i++)
@@ -157,7 +157,7 @@ int key_equal (Key k1, Key k2)
     return (1);
 }
 
-int key_equal_ui (Key k, unsigned long ul)
+int key_equal_ui (Key k, uint32_t ul)
 {
     int i;
     if (k.t[0] != ul)
@@ -196,14 +196,14 @@ void key_add (Key * result, const Key * const op1, const Key * const op2)
 	    b = op2->t[i];
 	    tmp += a + b;
 
-	    if (tmp > ULONG_MAX)
+	    if (tmp > UINT32_MAX)
 		{
-		    result->t[i] = (unsigned long) tmp;
+		    result->t[i] = (uint32_t) tmp;
 		    tmp = 1;
 		}
 	    else
 		{
-		    result->t[i] = (unsigned long) tmp;
+		    result->t[i] = (uint32_t) tmp;
 		    tmp = 0;
 		}
 	}
@@ -239,17 +239,17 @@ void key_sub (void *logs, Key * result, const Key * const op1,
 		}
 	    else
 		{
-		    a = a + ULONG_MAX + 1;
+		    a = a + UINT32_MAX + 1;
 		    tmp = a - b;
 		    carry = 1;
 		}
-	    result->t[i] = (unsigned long) tmp;
+	    result->t[i] = (uint32_t) tmp;
 	}
 
     result->valid = 0;
 }
 
-char *sha1_keygen (char *key, size_t digest_size, char *digest)
+char *sha1_keygen (const char *key, size_t digest_size, char *digest)
 {
     EVP_MD_CTX mdctx;
     const EVP_MD *md;
@@ -313,7 +313,7 @@ void key_makehash (void *logs, Key * hashed, char *s)
 	}
 }
 
-void key_make_hash (Key * hashed, char *s, size_t size)
+void key_make_hash (Key * hashed, const char *s, size_t size)
 {
     char *digest;
     int i;
@@ -332,8 +332,8 @@ void key_init ()
     int i;
     for (i = 0; i < 5; i++)
 	{
-	    Key_Max.t[i] = ULONG_MAX;
-	    Key_Half.t[i] = ULONG_MAX;
+	    Key_Max.t[i] = UINT32_MAX;
+	    Key_Half.t[i] = UINT32_MAX;
 	}
     Key_Half.t[4] = Key_Half.t[4] / 2;
 
