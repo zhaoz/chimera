@@ -233,7 +233,7 @@ void message_received (void *chstate, char *data, uint32_t size)
     jargs->state = state;
     jargs->msg = message;
 
-    job_submit (msgglob->jobq, message_receiver, (void *) jargs, 0);
+    job_submit (msgglob->jobq, (FuncPtr)message_receiver, (void *) jargs, 0);
 }
 
 /**

@@ -149,8 +149,7 @@ JRB jrb_find_gte_str (JRB n, char *key, int *fnd)
     *fnd = 0;
     if (!ishead (n))
 	{
-	    fprintf (stderr, "jrb_find_gte_str called on non-head 0x%x\n",
-		     (int) n);
+	    fprintf (stderr, "jrb_find_gte_str called on non-head 0x%x\n", n);
 	    exit (1);
 	}
     if (n->parent == n)
@@ -198,8 +197,7 @@ JRB jrb_find_gte_int (JRB n, int ikey, int *fnd)
     *fnd = 0;
     if (!ishead (n))
 	{
-	    fprintf (stderr, "jrb_find_gte_int called on non-head 0x%x\n",
-		     (unsigned int) n);
+	    fprintf (stderr, "jrb_find_gte_int called on non-head 0x%x\n", n);
 	    exit (1);
 	}
     if (n->parent == n)
@@ -243,8 +241,7 @@ JRB jrb_find_gte_dbl (JRB n, double dkey, int *fnd)
     *fnd = 0;
     if (!ishead (n))
 	{
-	    fprintf (stderr, "jrb_find_gte_dbl called on non-head 0x%x\n",
-		     (unsigned int) n);
+	    fprintf (stderr, "jrb_find_gte_dbl called on non-head 0x%x\n", n);
 	    exit (1);
 	}
     if (n->parent == n)
@@ -290,8 +287,7 @@ JRB jrb_find_gte_gen (JRB n, Jval key, int (*fxn) (Jval, Jval), int *fnd)
     *fnd = 0;
     if (!ishead (n))
 	{
-	    fprintf (stderr, "jrb_find_gte_str called on non-head 0x%x\n",
-		     (unsigned int) n);
+	    fprintf (stderr, "jrb_find_gte_str called on non-head 0x%x\n", n);
 	    exit (1);
 	}
     if (n->parent == n)
@@ -493,14 +489,12 @@ void jrb_delete_node (JRB n)
 
     if (isint (n))
 	{
-	    fprintf (stderr, "Cannot delete an internal node: 0x%x\n",
-		     (unsigned int) n);
+	    fprintf (stderr, "Cannot delete an internal node: 0x%x\n", n);
 	    exit (1);
 	}
     if (ishead (n))
 	{
-	    fprintf (stderr, "Cannot delete the head of an jrb_tree: 0x%x\n",
-		     (unsigned int) n);
+	    fprintf (stderr, "Cannot delete the head of an jrb_tree: 0x%x\n", n);
 	    exit (1);
 	}
     delete_item (n);		/* Delete it from the list */
@@ -650,12 +644,11 @@ void jrb_print_tree (JRB t, int level)
     int i;
     if (ishead (t) && t->parent == t)
 	{
-	    printf ("tree 0x%x is empty\n", (unsigned int) t);
+	    printf ("tree 0x%x is empty\n", t);
 	}
     else if (ishead (t))
 	{
-	    printf ("Head: 0x%x.  Root = 0x%x\n", (unsigned int) t,
-		    (unsigned int) t->parent);
+	    printf ("Head: 0x%x.  Root = 0x%x\n", t, t->parent);
 	    jrb_print_tree (t->parent, 0);
 	}
     else
@@ -665,8 +658,8 @@ void jrb_print_tree (JRB t, int level)
 		    for (i = 0; i < level; i++)
 			putchar (' ');
 		    printf ("Ext node 0x%x: %c,%c: p=0x%x, k=%s\n",
-			    (unsigned int) t, isred (t) ? 'R' : 'B',
-			    isleft (t) ? 'l' : 'r', (unsigned int) t->parent,
+			    t, isred (t) ? 'R' : 'B',
+			    isleft (t) ? 'l' : 'r', t->parent,
 			    t->key.s);
 		}
 	    else
@@ -677,9 +670,9 @@ void jrb_print_tree (JRB t, int level)
 			putchar (' ');
 		    printf
 			("Int node 0x%x: %c,%c: l=0x%x, r=0x%x, p=0x%x, lr=(%s,%s)\n",
-			 (unsigned int) t, isred (t) ? 'R' : 'B',
-			 isleft (t) ? 'l' : 'r', (unsigned int) t->flink,
-			 (unsigned int) t->blink, (unsigned int) t->parent,
+			 t, isred (t) ? 'R' : 'B',
+			 isleft (t) ? 'l' : 'r', t->flink,
+			 t->blink, t->parent,
 			 getlext (t)->key.s, getrext (t)->key.s);
 		}
 	}
@@ -690,13 +683,13 @@ void jrb_iprint_tree (JRB t, int level)
     int i;
     if (ishead (t) && t->parent == t)
 	{
-	    printf ("tree 0x%x is empty\n", (unsigned int) t);
+	    printf ("tree 0x%x is empty\n", &t);
 	}
     else if (ishead (t))
 	{
 	    printf ("Head: 0x%x.  Root = 0x%x, < = 0x%x, > = 0x%x\n",
-		    (unsigned int) t, (unsigned int) t->parent,
-		    (unsigned int) t->blink, (unsigned int) t->flink);
+		    t,  t->parent,
+		     t->blink,  t->flink);
 	    jrb_iprint_tree (t->parent, 0);
 	}
     else
@@ -707,9 +700,9 @@ void jrb_iprint_tree (JRB t, int level)
 			putchar (' ');
 		    printf
 			("Ext node 0x%x: %c,%c: p=0x%x, <=0x%x, >=0x%x k=%d\n",
-			 (unsigned int) t, isred (t) ? 'R' : 'B',
-			 isleft (t) ? 'l' : 'r', (unsigned int) t->parent,
-			 (unsigned int) t->blink, (unsigned int) t->flink,
+			  t, isred (t) ? 'R' : 'B',
+			 isleft (t) ? 'l' : 'r',  t->parent,
+			  t->blink,  t->flink,
 			 t->key.i);
 		}
 	    else
@@ -720,9 +713,9 @@ void jrb_iprint_tree (JRB t, int level)
 			putchar (' ');
 		    printf
 			("Int node 0x%x: %c,%c: l=0x%x, r=0x%x, p=0x%x, lr=(%d,%d)\n",
-			 (unsigned int) t, isred (t) ? 'R' : 'B',
-			 isleft (t) ? 'l' : 'r', (unsigned int) t->flink,
-			 (unsigned int) t->blink, (unsigned int) t->parent,
+			  t, isred (t) ? 'R' : 'B',
+			 isleft (t) ? 'l' : 'r',  t->flink,
+			  t->blink,  t->parent,
 			 getlext (t)->key.i, getrext (t)->key.i);
 		}
 	}
@@ -734,8 +727,7 @@ int jrb_nblack (JRB n)
     if (ishead (n) || isint (n))
 	{
 	    fprintf (stderr,
-		     "ERROR: jrb_nblack called on a non-external node 0x%x\n",
-		     (unsigned int) n);
+		     "ERROR: jrb_nblack called on a non-external node 0x%x\n", n);
 	    exit (1);
 	}
     nb = 0;
@@ -754,8 +746,7 @@ int jrb_plength (JRB n)
     if (ishead (n) || isint (n))
 	{
 	    fprintf (stderr,
-		     "ERROR: jrb_plength called on a non-external node 0x%x\n",
-		     (unsigned int) n);
+		     "ERROR: jrb_plength called on a non-external node 0x%x\n", n);
 	    exit (1);
 	}
     pl = 0;
@@ -771,8 +762,7 @@ void jrb_free_tree (JRB n)
 {
     if (!ishead (n))
 	{
-	    fprintf (stderr,
-		     "ERROR: Rb_free_tree called on a non-head node\n");
+	    fprintf (stderr, "ERROR: Rb_free_tree called on a non-head node\n");
 	    exit (1);
 	}
 

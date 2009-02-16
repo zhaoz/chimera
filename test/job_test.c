@@ -7,7 +7,7 @@
 
 
 /* Dummy Job 1 */
-void test_print (void *in)
+void test_print (void *in, void *dum)
 {
     char *c;
     c = (char *) in;
@@ -15,7 +15,7 @@ void test_print (void *in)
 }
 
 /* Dummy Job 2 */
-void count_print (void *in)
+void count_print (void *in, void *dum)
 {
     int i, j;
     i = *(int *) in;

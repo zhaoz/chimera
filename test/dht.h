@@ -1,4 +1,6 @@
 
+#include <stdlib.h>
+
 // message types
 #define HELLO_MESSAGE 51
 #define PUT_COMMAND 52

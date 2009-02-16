@@ -147,7 +147,7 @@ int main (int argc, char **argv)
 	    if (strcmp (tmp, "start") == 1)
 		{
 		    gettimeofday (&tv, NULL);
-		    fprintf (stderr, "** Start sending message  @ %s ", ctime (&tv));
+		    fprintf (stderr, "** Start sending message  @ %s ", ctime (&(tv.tv_sec)));
 		    for (i = 0; i < MSG_NUM; i++)
 			{
 
@@ -159,7 +159,7 @@ int main (int argc, char **argv)
 			}
 		    gettimeofday (&tv, NULL);
 		    fprintf (stderr, "**Finished sending %d messages @ %s ",
-			     counter, ctime (&tv));
+			     counter, ctime (&(tv.tv_sec)));
 		}
 	}
 }
