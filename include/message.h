@@ -40,6 +40,12 @@ typedef void (*messagehandler_t) (ChimeraState *, Message *);
 void *message_init (void *chstate, int port);
 
 /** 
+ ** message_free:
+ ** free the message and the payload
+ */
+void message_free (Message * msg);
+
+/** 
  ** message_received:
  ** is called by network_activate and will be passed received data and size from socket
  **
