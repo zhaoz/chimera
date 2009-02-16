@@ -95,7 +95,7 @@ void chimera_register (ChimeraState * state, int type, int ack);
  ** send data through the Chimera system and deliver it to the host closest to the
  ** key 
  */
-void chimera_send (ChimeraState * state, Key key, int32_t type, uint32_t len,
+void chimera_send (ChimeraState * state, Key key, int type, uint32_t len,
 		   char *data);
 
 /**
