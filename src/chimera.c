@@ -110,7 +110,6 @@ void chimera_send_rowinfo (ChimeraState * state, Message * message)
 	char s[NETWORK_PACK_SIZE];
 	ChimeraHost *host;
 	Message *msg;
-	ChimeraGlobal *chglob = (ChimeraGlobal *) state->chimera;
 
 	host = host_decode (state, message->payload);
 
@@ -301,7 +300,6 @@ int chimera_check_leafset_init (ChimeraState * state)
 
 	pthread_attr_t attr;
 	pthread_t tid;
-	ChimeraGlobal *chglob = (ChimeraGlobal *) state->chimera;
 
 	if (pthread_attr_init (&attr) != 0)
 	{
@@ -389,8 +387,6 @@ void chimera_route (ChimeraState * state, Key * key, Message * message,
 	ChimeraHost **tmp;
 	//ChimeraHost **piggy;
 	Message *real;
-	uint32_t size;
-	char s[NETWORK_PACK_SIZE];
 	ChimeraGlobal *chglob = (ChimeraGlobal *) state->chimera;
 
 	real = message;
@@ -550,7 +546,6 @@ void chimera_join_acknowledged (ChimeraState * state, Message * message)
  */
 void chimera_message (ChimeraState * state, Message * message)
 {
-	ChimeraGlobal *chglob = (ChimeraGlobal *) state->chimera;
 	chimera_route (state, &message->dest, message, NULL);
 }
 
@@ -581,11 +576,9 @@ void chimera_update_message (ChimeraState * state, Message * message)
 {
 
 	ChimeraHost *host;
-	ChimeraGlobal *chglob = (ChimeraGlobal *) state->chimera;
 
 	host = host_decode (state, message->payload);
 	route_update (state, host, 1);
-
 }
 
 /** 
@@ -600,9 +593,7 @@ void chimera_piggy_message (ChimeraState * state, Message * message)
 {
 
 	ChimeraHost **piggy;
-	ChimeraHost **tmp;
 	int i;
-	ChimeraGlobal *chglob = (ChimeraGlobal *) state->chimera;
 
 	piggy = chimera_decodehosts (state, message->payload);
 
@@ -675,13 +666,9 @@ void chimera_ping_reply (ChimeraState * state, Message * message)
 {
 
 	ChimeraHost *host;
-	ChimeraGlobal *chglob = (ChimeraGlobal *) state->chimera;
-
-
 	host = host_decode (state, message->payload);
 
 	// log_message(state->log,LOG_WARN, "received a PING message from %s:%d !\n",host->name,host->port ); 
-
 }
 
 
@@ -807,20 +794,19 @@ void chimera_join (ChimeraState * state, ChimeraHost * bootstrap)
  ** send data through the Chimera system and deliver it to the host closest to the
  ** key. 
  */
-void chimera_send (ChimeraState * state, Key key, int32_t type, uint32_t size,
+void chimera_send (ChimeraState * state, Key key, int type, uint32_t size,
 		char *data)
 {
 
 	Message *message;
-	char s[NETWORK_PACK_SIZE];
-	uint32_t realsize;
-	ChimeraGlobal *chglob = (ChimeraGlobal *) state->chimera;
 
 	/*
 	 * XXXPAT: this effectively does nothing right now, and it's unclear
 	 * why it's necessary even if it worked.
 	 */
 #if 0
+	char s[NETWORK_PACK_SIZE];
+	uint32_t realsize;
 	realsize = htonl ((uint32_t) size);
 	memcpy (s, &realsize, sizeof (uint32_t));
 	memcpy (s + sizeof (uint32_t), data, size);
