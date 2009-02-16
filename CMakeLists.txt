@@ -26,6 +26,8 @@ SET(LIBCHIMERA
 	src/route.c
 	src/semaphore.c)
 
+ADD_DEFINITIONS(-fPIC)
+
 
 add_library(chimera ${LIBCHIMERA})
 
