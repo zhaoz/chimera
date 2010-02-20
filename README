@@ -1,0 +1,7 @@
+Forked Chimera Distributed Hash Table - 
+
+Forked from version 1.20 with additonal patches from Ben Y. Zhao
+
+Original website located here: http://current.cs.ucsb.edu/projects/chimera/
+
+ * This version has improved 32bit <-> 64bit stuff (currently seems to work, lack of testing resources)
